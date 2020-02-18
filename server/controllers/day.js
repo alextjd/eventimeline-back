@@ -1,4 +1,4 @@
-var dayService = require("../services/day");
+const dayService = require("../services/day");
 
 /**
  * Function to get a day by date from the collection.
@@ -6,8 +6,8 @@ var dayService = require("../services/day");
  * save it in the db and then return it.
  */
 exports.find = (req, res) => {
-  var params = req.params || {};
-  var query = {
+  const params = req.params || {};
+  const query = {
     day: params.day,
     month: params.month
   };

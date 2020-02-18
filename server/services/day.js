@@ -1,10 +1,10 @@
 (() => {
-  var https = require("https");
-  var mongoose = require("mongoose");
-  var dayModel = mongoose.model("Day");
-  var constants = require("../shared/constants/constants");
+  const https = require("https");
+  const mongoose = require("mongoose");
+  const dayModel = mongoose.model("Day");
+  const constants = require("../shared/constants/constants");
 
-  var baseUrl = "https://history.muffinlabs.com/date";
+  const baseUrl = "https://history.muffinlabs.com/date";
 
   /**
    * Get a specific day by date from the API
@@ -15,7 +15,7 @@
     return new Promise((resolve, reject) => {
       https
         .get(`${baseUrl}/${query.month}/${query.day}`, res => {
-          var data = "";
+          let data = "";
           res.on("data", chunk => {
             data += chunk;
           });
@@ -35,7 +35,7 @@
    * @param {*} callback callback function
    */
   exports.findDayByDate = query => {
-    var date = `${constants.monthNames[query.month]} ${query.day}`;
+    const date = `${constants.monthNames[query.month]} ${query.day}`;
     return new Promise((resolve, reject) => {
       dayModel.findOne({ date }, (err, data) => {
         if (err) {
