@@ -15,37 +15,26 @@ exports.find = function(req, res) {
     res.status(400).send("Bad request");
     return;
   }
-  // Search the day in the db
-  dayService.findDayByDate(query, function(error, response) {
-    if (error) {
-      res.status(500).send(error);
-      return;
-    }
-    if (!response) {
-      res.status(200).send(response);
-      return;
-    }
-  });
-  // Ask for the day to the api
-  dayService.getDay(query, function(error, response) {
-    if (error) {
-      res.status(404).send(error);
-      return;
-    }
-    if (response) {
-      res.status(200).send(response);
-      return;
-    }
-    if (!response) {
-      res.status(204).send("No Data Found");
-    }
-  });
-};
 
-class Day {
-  constructor(dayData) {
-    this.date = dayData.date || "";
-    this.url = dayData.url || "";
-    this.data = dayData.data || {};
-  }
-}
+  dayService
+    .findDayByDate(query)
+    .then(data => {
+      if (!data) {
+        return dayService.getDay(query);
+      }
+      res.status(200).send(data);
+    })
+    .then(data => {
+      if (!data) {
+        res.status(503).send("Api service unavailable");
+      }
+      return dayService.saveDay(data);
+    })
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+};

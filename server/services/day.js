@@ -11,20 +11,22 @@
    * @param {*} query the requested day
    * @param {*} callback callback function
    */
-  exports.getDay = function(query, callback) {
-    https
-      .get(`${baseUrl}/${query.month}/${query.day}`, res => {
-        var data = "";
-        res.on("data", chunk => {
-          data += chunk;
+  exports.getDay = query => {
+    return new Promise((resolve, reject) => {
+      https
+        .get(`${baseUrl}/${query.month}/${query.day}`, res => {
+          var data = "";
+          res.on("data", chunk => {
+            data += chunk;
+          });
+          res.on("end", () => {
+            return resolve(JSON.parse(data));
+          });
+        })
+        .on("error", err => {
+          return reject(err);
         });
-        res.on("end", () => {
-          callback(null, data);
-        });
-      })
-      .on("error", err => {
-        console.log("Error regarding the external API: " + err.message);
-      });
+    });
   };
 
   /**
@@ -32,16 +34,16 @@
    * @param {*} query the requested day
    * @param {*} callback callback function
    */
-  exports.findDayByDate = function(query, callback) {
+  exports.findDayByDate = query => {
     var date = `${constants.monthNames[query.month]} ${query.day}`;
-    dayModel.findOne({ date }).then(
-      res => {
-        callback(null, res);
-      },
-      error => {
-        callback(error, null);
-      }
-    );
+    return new Promise((resolve, reject) => {
+      dayModel.findOne({ date }, (err, data) => {
+        if (err) {
+          return reject("No db connection");
+        }
+        return resolve(data);
+      });
+    });
   };
 
   /**
@@ -49,14 +51,14 @@
    * @param {*} data day data
    * @param {*} callback callback function
    */
-  exports.saveDay = function(data, callback) {
-    dayModel.create(data).then(
-      res => {
-        callback(null, res);
-      },
-      error => {
-        callback(error, null);
-      }
-    );
+  exports.saveDay = data => {
+    return new Promise((resolve, reject) => {
+      dayModel.create(data, (err, data) => {
+        if (err) {
+          return reject("No db connection");
+        }
+        return resolve(data);
+      });
+    });
   };
 })();
