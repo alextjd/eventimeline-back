@@ -1,9 +1,9 @@
-function define(name, value) {
+const define = (name, value) => {
   Object.defineProperty(exports, name, {
     value: value,
     enumerable: true
   });
-}
+};
 
 define("monthNames", [
   "January",

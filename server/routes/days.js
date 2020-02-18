@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var dayCtrl = require("../controllers/day");
 
-router.get("/", function(req, res, next) {
+router.get("/", (req, res, next) => {
   res.send("respond with a resource");
 });
 

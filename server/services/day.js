@@ -1,4 +1,4 @@
-(function() {
+(() => {
   var https = require("https");
   var mongoose = require("mongoose");
   var dayModel = mongoose.model("Day");

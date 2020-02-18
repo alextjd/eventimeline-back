@@ -5,7 +5,7 @@ var dayService = require("../services/day");
  * If the day is not stored in db, take it from the API,
  * save it in the db and then return it.
  */
-exports.find = function(req, res) {
+exports.find = (req, res) => {
   var params = req.params || {};
   var query = {
     day: params.day,
