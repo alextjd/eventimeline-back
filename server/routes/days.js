@@ -5,7 +5,7 @@ var dayCtrl = require("../controllers/day");
 /**
  ** Get day by date
  **/
-router.get("/day/:month/:day", dayCtrl.get);
+router.get("/day/:month/:day", dayCtrl.find);
 
 /**
  ** Create new day
