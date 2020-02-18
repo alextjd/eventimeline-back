@@ -1,7 +1,8 @@
 (function() {
   var https = require("https");
   var mongoose = require("mongoose");
-  var day = mongoose.model("Day");
+  var dayModel = mongoose.model("Day");
+  var constants = require("../shared/constants/constants");
 
   var baseUrl = "https://history.muffinlabs.com/date";
 
@@ -26,7 +27,22 @@
       });
   };
 
-  exports.findDayByDate = function(query, callback) {};
+  /**
+   * Search the date in the database
+   * @param {*} query the requested day
+   * @param {*} callback callback function
+   */
+  exports.findDayByDate = function(query, callback) {
+    var date = `${constants.monthNames[query.month]} ${query.day}`;
+    dayModel.findOne({ date }).then(
+      res => {
+        callback(null, res);
+      },
+      error => {
+        callback(error, null);
+      }
+    );
+  };
 
   /**
    * Save a new day
@@ -34,7 +50,7 @@
    * @param {*} callback callback function
    */
   exports.saveDay = function(data, callback) {
-    day.create(data).then(
+    dayModel.create(data).then(
       res => {
         callback(null, res);
       },

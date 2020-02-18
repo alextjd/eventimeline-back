@@ -16,7 +16,16 @@ exports.find = function(req, res) {
     return;
   }
   // Search the day in the db
-  dayService.findDayByDate(query, function(error, response) {});
+  dayService.findDayByDate(query, function(error, response) {
+    if (error) {
+      res.status(500).send(error);
+      return;
+    }
+    if (!response) {
+      res.status(200).send(response);
+      return;
+    }
+  });
   // Ask for the day to the api
   dayService.getDay(query, function(error, response) {
     if (error) {
