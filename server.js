@@ -6,7 +6,7 @@ var logger = require("morgan");
 
 // Routes
 var indexRouter = require("./server/routes/index");
-var usersRouter = require("./server/routes/users");
+var dayRouter = require("./server/routes/days");
 
 // Config files
 require("./server/config/connection");
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/days", daysRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
