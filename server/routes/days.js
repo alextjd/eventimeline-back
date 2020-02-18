@@ -11,9 +11,4 @@ router.get("/", function(req, res, next) {
  **/
 router.get("/day/:month/:day", dayCtrl.find);
 
-/**
- ** Create new day
- **/
-router.post("/", dayCtrl.create);
-
 module.exports = router;
