@@ -14,7 +14,6 @@ mongoose.connect(URL, {
 });
 
 // Models
-// require('../model/user');
 var db = mongoose.connection;
 
 // Connection callbacks
