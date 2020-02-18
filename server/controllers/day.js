@@ -1,4 +1,4 @@
-var dayService = require("../service/day");
+var dayService = require("../services/day");
 
 /**
  * Function to save a day in the collection.
@@ -33,6 +33,7 @@ exports.find = function(req, res) {
     res.status(400).send("Bad request");
     return;
   }
+
   dayService.findDay(query, function(error, response) {
     if (error) {
       res.status(404).send(error);
@@ -49,9 +50,9 @@ exports.find = function(req, res) {
 };
 
 class Day {
-  constructor(data) {
-    this.date = userData.date || "";
-    this.url = userData.url || "";
-    this.data = userData.data || {};
+  constructor(dayData) {
+    this.date = dayData.date || "";
+    this.url = dayData.url || "";
+    this.data = dayData.data || {};
   }
 }
