@@ -4,9 +4,12 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+// Models
+require("./server/models/day");
+
 // Routes
 var indexRouter = require("./server/routes/index");
-var dayRouter = require("./server/routes/days");
+var daysRouter = require("./server/routes/days");
 
 // Config files
 require("./server/config/connection");
