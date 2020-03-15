@@ -24,6 +24,10 @@ exports.find = (req, res) => {
     res.status(400).send(constants.error.invalidRange);
   }
 
+  dayService.findDaysByDate(days).then(res => {
+    console.log(res);
+  });
+
   return;
   dayService
     .findDayByDate(query)
