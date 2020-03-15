@@ -8,8 +8,8 @@ const dayService = require("../services/day");
 exports.find = (req, res) => {
   const range = req.query || {};
   const query = {
-    day: range.start,
-    month: range.end
+    start: range.start,
+    end: range.end
   };
   if (!query) {
     res.status(400).send("Bad request");
