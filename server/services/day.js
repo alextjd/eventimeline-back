@@ -55,9 +55,11 @@
   };
 
   exports.findDaysByDate = days => {
+    const promises = [];
     days.forEach(day => {
-      this.findDayByDate(day);
+      promises.push(this.findDayByDate(day));
     });
+    return Promise.all(promises);
   };
 
   /**
