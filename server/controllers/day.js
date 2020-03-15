@@ -1,4 +1,5 @@
 const dayService = require("../services/day");
+const constants = require("../shared/constants/constants");
 
 /**
  * Function to get a day by date from the collection.
@@ -16,6 +17,14 @@ exports.find = (req, res) => {
     return;
   }
 
+  let days;
+  try {
+    days = dayService.getDaysInterval(range);
+  } catch (error) {
+    res.status(400).send(constants.error.invalidRange);
+  }
+
+  return;
   dayService
     .findDayByDate(query)
     .then(data => {
