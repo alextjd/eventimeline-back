@@ -48,11 +48,10 @@
   };
 
   exports.getDaysInterval = range => {
-    const days = eachDayOfInterval({
+    return eachDayOfInterval({
       start: new Date(range.start),
       end: new Date(range.end)
     });
-    return days;
   };
 
   exports.findDaysByDate = days => {};
