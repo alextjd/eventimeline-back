@@ -19,3 +19,7 @@ define("monthNames", [
   "November",
   "December"
 ]);
+
+define("error", {
+  invalidRange: "The dates range provided is invalid."
+});
