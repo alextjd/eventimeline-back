@@ -3,6 +3,7 @@
   const mongoose = require("mongoose");
   const dayModel = mongoose.model("Day");
   const constants = require("../shared/constants/constants");
+  const eachDayOfInterval = require("date-fns/eachDayOfInterval");
 
   const baseUrl = "https://history.muffinlabs.com/date";
 
@@ -45,6 +46,16 @@
       });
     });
   };
+
+  exports.getDaysInterval = range => {
+    const days = eachDayOfInterval({
+      start: new Date(range.start),
+      end: new Date(range.end)
+    });
+    return days;
+  };
+
+  exports.findDaysByDate = days => {};
 
   /**
    * Save a new day
