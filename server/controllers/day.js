@@ -6,10 +6,10 @@ const dayService = require("../services/day");
  * save it in the db and then return it.
  */
 exports.find = (req, res) => {
-  const params = req.params || {};
+  const range = req.query || {};
   const query = {
-    day: params.day,
-    month: params.month
+    day: range.start,
+    month: range.end
   };
   if (!query) {
     res.status(400).send("Bad request");

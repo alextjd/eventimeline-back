@@ -9,6 +9,6 @@ router.get("/", (req, res, next) => {
 /**
  ** Get day by date
  **/
-router.get("/day/:month/:day", dayCtrl.find);
+router.get("/days", dayCtrl.find);
 
 module.exports = router;
