@@ -32,11 +32,11 @@
 
   /**
    * Search the date in the database
-   * @param {*} query the requested day
+   * @param {*} day the requested day
    * @param {*} callback callback function
    */
-  exports.findDayByDate = query => {
-    const date = `${constants.monthNames[query.month]} ${query.day}`;
+  exports.findDayByDate = day => {
+    const date = `${constants.monthNames[day.getMonth()]} ${day.getDate()}`;
     return new Promise((resolve, reject) => {
       dayModel.findOne({ date }, (err, data) => {
         if (err) {
@@ -54,7 +54,11 @@
     });
   };
 
-  exports.findDaysByDate = days => {};
+  exports.findDaysByDate = days => {
+    days.forEach(day => {
+      this.findDayByDate(day);
+    });
+  };
 
   /**
    * Save a new day
