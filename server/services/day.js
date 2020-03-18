@@ -39,6 +39,8 @@
         return this.getDay({
           month: days[index].getMonth() + 1,
           day: days[index].getDate()
+        }).then(res => {
+          return this.saveDay(res);
         });
       }
     });
@@ -82,16 +84,20 @@
 
   /**
    * Save a new day
-   * @param {*} data day data
+   * @param {*} day day data
    */
-  exports.saveDay = data => {
+  exports.saveDay = day => {
     return new Promise((resolve, reject) => {
-      dayModel.create(data, (err, data) => {
+      dayModel.create(day, (err, data) => {
         if (err) {
           return reject("No db connection");
         }
         return resolve(data);
       });
     });
+  };
+
+  exports.saveDays = days => {
+    days.forEach(day => {});
   };
 })();
