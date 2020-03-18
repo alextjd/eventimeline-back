@@ -10,7 +10,6 @@
   /**
    * Get a specific day by date from the API
    * @param {*} query the requested day
-   * @param {*} callback callback function
    */
   exports.getDay = query => {
     return new Promise((resolve, reject) => {
@@ -30,13 +29,33 @@
     });
   };
 
+  exports.getDays = (foundDays, days) => {
+    const parsedDays = foundDays.map((day, index) => {
+      if (day) {
+        return new Promise(
+          day => {
+            return day;
+          },
+          () => {}
+        );
+      } else {
+        const query = this.parseDate(days[index]);
+        return this.getDay(query);
+      }
+    });
+    return Promise.all(parsedDays);
+  };
+
+  exports.parseDate = date => {
+    return `${constants.monthNames[date.getMonth()]} ${date.getDate()}`;
+  };
+
   /**
    * Search the date in the database
    * @param {*} day the requested day
-   * @param {*} callback callback function
    */
   exports.findDayByDate = day => {
-    const date = `${constants.monthNames[day.getMonth()]} ${day.getDate()}`;
+    const date = this.parseDate(day);
     return new Promise((resolve, reject) => {
       dayModel.findOne({ date }, (err, data) => {
         if (err) {
@@ -65,7 +84,6 @@
   /**
    * Save a new day
    * @param {*} data day data
-   * @param {*} callback callback function
    */
   exports.saveDay = data => {
     return new Promise((resolve, reject) => {
