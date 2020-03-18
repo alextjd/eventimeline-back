@@ -40,7 +40,7 @@
         );
       } else {
         return this.getDay({
-          month: days[index].getMonth(),
+          month: days[index].getMonth() + 1,
           day: days[index].getDate()
         });
       }
