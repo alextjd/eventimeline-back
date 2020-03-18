@@ -35,27 +35,5 @@ exports.find = (req, res) => {
     .catch(err => {
       console.log(err);
     });
-
   return;
-  dayService
-    .findDayByDate(query)
-    .then(data => {
-      if (!data) {
-        return dayService.getDay(query);
-      }
-      res.status(200).send(data);
-    })
-    .then(data => {
-      if (!data) {
-        res.status(503).send("Api service unavailable");
-      }
-      return dayService.saveDay(data);
-    })
-    .then(data => {
-      res.status(200).send(data);
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).send(error);
-    });
 };
