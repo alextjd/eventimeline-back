@@ -26,9 +26,9 @@ exports.find = (req, res) => {
 
   dayService
     .findDaysByDate(days)
-    .then(days => {
-      if (days.some(day => day === null)) {
-        dayService.getDaysInterval(days);
+    .then(res => {
+      if (res.some(day => day === null)) {
+        dayService.getDays(res, days);
       }
     })
     .catch(err => {
