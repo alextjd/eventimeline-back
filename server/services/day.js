@@ -39,8 +39,10 @@
           () => {}
         );
       } else {
-        const query = this.parseDate(days[index]);
-        return this.getDay(query);
+        return this.getDay({
+          month: days[index].getMonth(),
+          day: days[index].getDate()
+        });
       }
     });
     return Promise.all(parsedDays);
