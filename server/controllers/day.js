@@ -26,10 +26,11 @@ exports.find = (req, res) => {
 
   dayService
     .findDaysByDate(days)
-    .then(res => {
-      if (res.some(day => day === null)) {
-        dayService.getDays(res, days);
-      }
+    .then(data => {
+      return dayService.getDays(data, days);
+    })
+    .then(data => {
+      res.status(200).send(data);
     })
     .catch(err => {
       console.log(err);
