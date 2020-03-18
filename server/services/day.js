@@ -32,9 +32,7 @@
   exports.getDays = (foundDays, days) => {
     const parsedDays = foundDays.map((day, index) => {
       if (day) {
-        return new Promise(day => {
-          return day;
-        });
+        return day;
       } else {
         return this.getDay({
           month: days[index].getMonth() + 1,
