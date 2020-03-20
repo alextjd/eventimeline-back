@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const requestLogger = require("./server/middleware/request-logger");
 const cbcprls = require("./server/middleware/cbcprls");
-const { handleError } = require("./helpers/error");
+const { handleError } = require("./server/shared/helpers/error");
 
 // Models
 require("./server/models/day");
