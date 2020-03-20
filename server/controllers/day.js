@@ -1,5 +1,6 @@
 const dayService = require("../services/day");
 const constants = require("../shared/constants/constants");
+const { ErrorHandler } = require("../shared/helpers/error");
 
 /**
  * Function to get a day by date from the collection.
@@ -21,7 +22,7 @@ exports.find = (req, res) => {
   try {
     days = dayService.getDaysInterval(range);
   } catch (error) {
-    res.status(400).send(constants.error.invalidRange);
+    throw new ErrorHandler(404, constants.error.invalidRange);
   }
 
   dayService
@@ -33,7 +34,7 @@ exports.find = (req, res) => {
       res.status(200).send(data);
     })
     .catch(err => {
-      console.log(err);
+      throw new ErrorHandler(404, error);
     });
   return;
 };
