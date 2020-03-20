@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const requestLogger = require("./server/middleware/request-logger");
 
 // Models
 require("./server/models/day");
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(requestLogger);
 
 app.use("/", indexRouter);
 app.use("/api/days", daysRouter);
