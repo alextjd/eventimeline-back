@@ -8,8 +8,21 @@ const requestLogger = require("./server/middleware/request-logger");
 const cbcprls = require("./server/middleware/cbcprls");
 const { handleError } = require("./server/shared/helpers/error");
 
+// App initialization
+const app = express();
+
 // Models
 require("./server/models/day");
+
+// CORS setup
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // Routes
 const indexRouter = require("./server/routes/index");
@@ -17,8 +30,6 @@ const daysRouter = require("./server/routes/days");
 
 // Config files
 require("./server/config/connection");
-
-const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -32,9 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(requestLogger);
 app.use(cbcprls);
 
-// Enable CORS
-app.use(cors());
-
+// Routing definitions
 app.use("/", indexRouter);
 app.use("/api/days", daysRouter);
 
