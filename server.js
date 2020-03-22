@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 const requestLogger = require("./server/middleware/request-logger");
 const cbcprls = require("./server/middleware/cbcprls");
 const { handleError } = require("./server/shared/helpers/error");
@@ -30,6 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(requestLogger);
 app.use(cbcprls);
+
+// Enable CORS
+app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/api/days", daysRouter);
